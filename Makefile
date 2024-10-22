@@ -1,7 +1,8 @@
 NAME = libasm.a
 BIN = bin
-FILE_NAMES = ft_read ft_write
+FILE_NAMES = ft_read ft_write ft_strlen
 TEST_FILE = ./tests/main.c
+TEST_FILE++ = ./tests/main.cpp
 OBJ_Files = $(addprefix $(BIN)/, $(addsuffix .o , $(FILE_NAMES)))
 ASM_FILES = $(addprefix ./src/, $(addsuffix .asm , $(FILE_NAMES)))
 
@@ -18,6 +19,9 @@ $(BIN)/%.o: ./src/%.asm $(BIN)
 
 tests: $(NAME)
 	gcc $(TEST_FILE) $(NAME)
+
+ctests: $(NAME)
+	g++  $(TEST_FILE++) $(NAME)
 
 clean:
 	rm -rf $(BIN)
