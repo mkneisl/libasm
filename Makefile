@@ -1,6 +1,6 @@
 NAME = libasm.a
 BIN = bin
-FILE_NAMES = ft_read ft_write ft_strlen
+FILE_NAMES = ft_read ft_write ft_strlen ft_strcpy
 TEST_FILE = ./tests/main.c
 TEST_FILE++ = ./tests/main.cpp
 OBJ_Files = $(addprefix $(BIN)/, $(addsuffix .o , $(FILE_NAMES)))
