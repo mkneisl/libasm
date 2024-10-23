@@ -1,7 +1,6 @@
-
     global ft_strlen
-    section .text
 
+    section .text
 ft_strlen:
     cmp rdi, 0
     jz end
