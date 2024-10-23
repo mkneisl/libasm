@@ -1,32 +1,37 @@
 NAME = libasm.a
 BIN = bin
-FILE_NAMES = ft_read ft_write ft_strlen ft_strcpy
+FILE_NAMES = ft_read ft_write ft_strlen ft_strcpy ft_strcmp ft_strdup
 TEST_FILE = ./tests/main.c
 TEST_FILE++ = ./tests/main.cpp
 OBJ_Files = $(addprefix $(BIN)/, $(addsuffix .o , $(FILE_NAMES)))
 ASM_FILES = $(addprefix ./src/, $(addsuffix .asm , $(FILE_NAMES)))
+ASM_DEBUG_INFO = -g -F dwarf
+CFLAGS = -Werror -Wall -Wextra
 
 all: $(NAME)
 
-$(NAME): $(OBJ_Files)
+$(NAME): $(BIN) $(OBJ_Files)
 	ar rc $(NAME) $(OBJ_Files)
+
+$(BIN)/%.o: ./src/%.asm 
+	nasm -f elf64 $< -o $@
 
 $(BIN):
 	mkdir $(BIN)
 
-$(BIN)/%.o: ./src/%.asm $(BIN)
-	nasm -f elf64  $< -o $@
+testsc: $(NAME)
+	cc  $(CFLAGS) $(TEST_FILE) $(NAME) -o $@
 
-tests: $(NAME)
-	gcc $(TEST_FILE) $(NAME)
-
-ctests: $(NAME)
-	g++  $(TEST_FILE++) $(NAME)
+tests++: $(NAME)
+	c++ $(CFLAGS) $(TEST_FILE++) $(NAME) -o $@
 
 clean:
 	rm -rf $(BIN)
 
 fclean: clean
 	rm -f $(NAME)
+	rm -f tests++
+	rm -f testsc
+	rm -f test.txt
 
 re: fclean $(NAME)

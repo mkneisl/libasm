@@ -4,8 +4,8 @@
 ft_strcmp:
     xor rax, rax
     xor rcx, rcx
-    mov al, BYTE[rsi]
-    mov cl, BYTE[rdi]
+    mov al, BYTE[rdi]
+    mov cl, BYTE[rsi]
     inc rsi
     inc rdi
     cmp al, 0
