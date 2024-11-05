@@ -1,6 +1,6 @@
 NAME = libasm.a
 BIN = bin
-FILE_NAMES = ft_read ft_write ft_strlen ft_strcpy ft_strcmp ft_strdup
+FILE_NAMES = ft_read ft_write ft_strlen ft_strcpy ft_strcmp ft_strdup ft_atoi_base
 TEST_FILE = ./tests/main.c
 TEST_FILE++ = ./tests/main.cpp
 OBJ_Files = $(addprefix $(BIN)/, $(addsuffix .o , $(FILE_NAMES)))
@@ -19,10 +19,10 @@ $(BIN)/%.o: ./src/%.asm
 $(BIN):
 	mkdir $(BIN)
 
-testsc: $(NAME)
+testsc: $(NAME) $(TEST_FILE)
 	cc  $(CFLAGS) $(TEST_FILE) $(NAME) -o $@
 
-tests++: $(NAME)
+tests++: $(NAME) $(TEST_FILE++)
 	c++ $(CFLAGS) $(TEST_FILE++) $(NAME) -o $@
 
 clean:

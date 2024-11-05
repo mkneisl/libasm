@@ -31,6 +31,16 @@ void testValidReadWrite()
 
 int main()
 {
-    testValidReadWrite();
+    //char baseTen[] = "0123456789";
+    //char strTen[] = "42";
+
+    char baseBin[] = "01";
+    char strBin[] = "00101010";
+
+    int num = ft_atoi_base(strBin, baseBin);
+
+
+    printf("num : %i\n", num);
+    //testValidReadWrite();
     return 0;
 }
