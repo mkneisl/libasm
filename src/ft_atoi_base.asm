@@ -1,3 +1,5 @@
+%include "src/macros.asm"
+
     ptr_str equ 0
     ptr_base equ ptr_str + 8
     base equ ptr_base + 8
@@ -11,7 +13,7 @@ ft_atoi_base:
     mov [rsp + ptr_str], rdi    ; char*  str 
     mov [rsp + ptr_base], rsi   ; char* base
     mov rdi, rsi
-    call ft_strlen wrt ..plt
+    dycall ft_strlen
     mov [rsp + base], rax       ; Save base to stack
     mov rdi,[rsp + ptr_str]     ; char* str
     mov r8,[rsp + ptr_base]     ; char* base

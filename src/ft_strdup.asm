@@ -1,3 +1,5 @@
+%include "src/macros.asm"
+
     global ft_strdup
     extern malloc
     extern ft_strlen
@@ -6,14 +8,15 @@
     section .text
 ft_strdup:
     push rdi
-    call ft_strlen wrt ..plt
+    push rax
+    dycall ft_strlen
     inc rax
     mov rdi, rax
-    call malloc wrt ..plt
+    dycall malloc
     cmp rax, 0
     jz end
     mov rdi, rax
     pop rsi
-    call ft_strcpy wrt ..plt
+    dycall ft_strcpy
 end:
     ret

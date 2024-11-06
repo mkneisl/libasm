@@ -1,12 +1,13 @@
 NAME = libasm.a
 BIN = bin
-FILE_NAMES = ft_read ft_write ft_strlen ft_strcpy ft_strcmp ft_strdup ft_atoi_base
+FILE_NAMES = ft_write ft_read  ft_strlen ft_strcpy ft_strcmp ft_strdup ft_atoi_base
 TEST_FILE = ./tests/main.c
 TEST_FILE++ = ./tests/main.cpp
 OBJ_Files = $(addprefix $(BIN)/, $(addsuffix .o , $(FILE_NAMES)))
 ASM_FILES = $(addprefix ./src/, $(addsuffix .asm , $(FILE_NAMES)))
 ASM_DEBUG_INFO = -g -F dwarf
 CFLAGS = -Werror -Wall -Wextra
+CPPFLAGS = -std=c++2a
 OS_NAME = $(shell uname -s)
 
 all: $(NAME)
@@ -31,7 +32,7 @@ testsc: $(NAME) $(TEST_FILE)
 	cc  $(CFLAGS) $(TEST_FILE) $(NAME) -o $@
 
 tests++: $(NAME) $(TEST_FILE++)
-	c++ $(CFLAGS) $(TEST_FILE++) $(NAME) -o $@
+	c++ $(CFLAGS) $(CPPFLAGS) $(TEST_FILE++) $(NAME) -o $@
 
 clean:
 	@rm -rf $(BIN)
