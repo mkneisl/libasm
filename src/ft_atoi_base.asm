@@ -1,16 +1,20 @@
+    ptr_str equ 0
+    ptr_base equ ptr_str + 8
+    base equ ptr_base + 8
+
     global ft_atoi_base
     extern ft_strlen
 
     section .text
 ft_atoi_base:
     sub rsp, 24                 ; Save arguments to stack
-    mov [rsp], rdi              ; char*  str 
-    mov [rsp + 8], rsi          ; char* base
+    mov [rsp + ptr_str], rdi    ; char*  str 
+    mov [rsp + ptr_base], rsi   ; char* base
     mov rdi, rsi
     call ft_strlen wrt ..plt
-    mov [rsp + 16], rax         ; Save base to stack
-    mov rdi,[rsp]               ; char* str
-    mov r8,[rsp + 8]            ; char* base
+    mov [rsp + base], rax       ; Save base to stack
+    mov rdi,[rsp + ptr_str]     ; char* str
+    mov r8,[rsp + ptr_base]     ; char* base
     xor rax, rax
 data_loop:
     mov cl, BYTE [rdi]
@@ -26,7 +30,7 @@ get_digit:
     inc r9
     jmp get_digit
 add_digit:
-    imul rax, [rsp + 16]        ; Multiply value with base
+    imul rax, [rsp + base]      ; Multiply value with base
     add rax, r9
     inc rdi
     jmp data_loop

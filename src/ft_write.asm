@@ -1,9 +1,11 @@
+    WRITE_IDX equ 1
+
     global ft_write
     extern __errno_location
 
     section .text
 ft_write:
-    mov rax, 1 ; Syscall idx
+    mov rax, WRITE_IDX ; Syscall idx
     syscall
     cmp rax, 0
     js err

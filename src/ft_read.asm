@@ -1,9 +1,11 @@
+    READ_IDX equ 0
+
     global ft_read
     extern __errno_location
 
     section .text
 ft_read:
-    mov rax, 0 ; Syscall idx
+    mov rax, READ_IDX ; Syscall idx
     syscall
     cmp rax, 0
     js err
