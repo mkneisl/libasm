@@ -12,7 +12,7 @@ ft_list_push_front:
     cmp rax, 0
     pop rdi
     je end
-    cmp [rdi], 0
+    cmp QWORD[rdi], 0
     je set_start_node
     mov rdx, [rdi]
     mov [rax + s_list.next], rdx
