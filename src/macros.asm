@@ -13,7 +13,7 @@
     %ifidn __OUTPUT_FORMAT__, macho64
         clc
         syscall
-        js %%error
+        jb %%error
     %elifidn __OUTPUT_FORMAT__, elf64
         syscall
         cmp rax, 0

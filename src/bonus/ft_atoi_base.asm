@@ -33,7 +33,7 @@ get_digit:
     jmp get_digit
 add_digit:
     imul rax, [rsp + base]      ; Multiply value with base
-    add rax, r9
+    add rax, r9                 ; Add digit
     inc rdi
     jmp data_loop
 end:

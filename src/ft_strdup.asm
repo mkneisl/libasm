@@ -8,7 +8,6 @@
     section .text
 ft_strdup:
     push rdi
-    push rax
     dycall ft_strlen
     inc rax
     mov rdi, rax
