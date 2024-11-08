@@ -9,7 +9,7 @@
 %endmacro
 
 %macro isyscall 2
-    mov rax, $1
+    mov rax, %1
     %ifidn __OUTPUT_FORMAT__, macho64
         clc
         syscall
