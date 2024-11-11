@@ -30,25 +30,76 @@
 //     printf("ft valid read: ret: %li  - errno %i\n", retVal, errno);
 // }
 
+
+//void insert_sorted(t_list** begin, t_list* toInsert)
+
+int compare(long long a, long long b)
+{
+    return a - b;
+}
+
+void print_list(t_list** startNode)
+{
+    t_list* pNode = *startNode;
+    printf("--------------------\n");
+    while (pNode)
+    {
+        printf("Node: %p\n", pNode);
+        printf("Data: %x\n", (int)pNode->data);
+        printf("Next: %p\n", pNode->next);
+        pNode = pNode ->next;
+    }
+    printf("--------------------\n");
+}
+
 int main()
 {
+    //t_list** base;
     t_list* listBase = NULL;
 
-    ft_list_add_front(&listBase, 0);
-    ft_list_add_front(&listBase, 1);
-    ft_list_add_front(&listBase, 2);
-    ft_list_add_front(&listBase, 3);
-    ft_list_add_front(&listBase, 4);
-    ft_list_add_front(&listBase, 5);
+    ft_list_push_front(&listBase, (void*)0);
+    ft_list_push_front(&listBase, (void*)1);
+    ft_list_push_front(&listBase, (void*)2);
+    ft_list_push_front(&listBase, (void*)3);
+    ft_list_push_front(&listBase, (void*)4);
+    ft_list_push_front(&listBase, (void*)5);
     
     printf("list size %i\n", ft_list_size(listBase));
     t_list* pNode = listBase;
     while (pNode)
     {
-        prinf("NR: %x", pNode->data);
+        printf("NR: %x\n", (int)pNode->data);
         pNode = pNode->next;
     }
-    //ft_write(1, "Hello\n", 7);
+    printf("Sorting....\n");
+
+    printf("listBase %p\n", listBase);
+
+    ft_list_sort(&listBase, &compare);
+
+    printf("listBase %p\n", listBase);
+
+    pNode = listBase;
+    while (pNode)
+    {
+        printf("NR: %x\n", (int)pNode->data);
+        pNode = pNode->next;
+    }
+    //int ret = 0;
+    // errno = 0;
+    // ret = ft_write(1, "Hello\n", 7);
+    // printf("Ret: %i - errno %i\n", ret, errno);
+
+    // // ret = write(1, "Hello\n", 7);
+    // // printf("Ret: %i - errno %i\n", ret, errno);
+    
+    // ret = ft_write(-1, "Hello\n", 7);
+    // printf("Ret: %i - errno %i\n", ret, errno);
+
+    // ret = write(1, "Hello\n", 7);
+    // printf("Ret: %i - errno %i\n", ret, errno);
+    
+
 
     //char baseTen[] = "0123456789";
     //char strTen[] = "42";
