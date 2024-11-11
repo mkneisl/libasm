@@ -60,17 +60,30 @@ end:
 	pop r12
 	ret
 
-; void insert_sorted(t_list** begin, t_list* toInsert, )
+; void insert_sorted(t_list** begin, t_list* toInsert, coid* cmp)
 insert_sorted:
 	push r12
 	push r13
 	push r14
-	mov r12, [rdi] ; r12 -> prev next
-	mov r13, rsi
-	mov r14, rdx
+	push r15
+	mov r12, rdi	; r12 -> p prev next
+	mov r13, rsi	; r13 -> node to insert
+	mov r14, rdx	; r14 -> cmp callback
+	mov r15, [rdi]	; r15 -> current node
 
-	mov 
+insertion_loop:
+	cmp r15, 0
+	je end_insert
+	mov rdi, [r13 + s_list.data]
+	mov rsi, [r15 + s_list.data]
+	call r14
+	cmp rax, 0
+	jg insertion_loop ; if greater - get next node else insert
+	
 
+end_insert:
+	pop r15
 	pop r14
 	pop r13
 	pop r12
+	ret
