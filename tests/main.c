@@ -30,7 +30,6 @@
 //     printf("ft valid read: ret: %li  - errno %i\n", retVal, errno);
 // }
 
-
 //void insert_sorted(t_list** begin, t_list* toInsert)
 
 int compare(long long a, long long b)
@@ -52,6 +51,11 @@ void print_list(t_list** startNode)
     printf("--------------------\n");
 }
 
+void freeFunc(void* data)
+{
+    printf("Freed: %i\n", (int)data);
+}
+
 int main()
 {
     //t_list** base;
@@ -65,15 +69,15 @@ int main()
     ft_list_push_front(&listBase, (void*)5);
     
     printf("list size %i\n", ft_list_size(listBase));
+   
+    printf("listBase %p\n", listBase);
     t_list* pNode = listBase;
     while (pNode)
     {
-        printf("NR: %x\n", (int)pNode->data);
+        printf("NR: %x -> %p\n", (int)pNode->data, pNode);
         pNode = pNode->next;
     }
     printf("Sorting....\n");
-
-    printf("listBase %p\n", listBase);
 
     ft_list_sort(&listBase, &compare);
 
@@ -82,9 +86,22 @@ int main()
     pNode = listBase;
     while (pNode)
     {
-        printf("NR: %x\n", (int)pNode->data);
+        printf("NR: %x -> %p\n", (int)pNode->data, pNode);
         pNode = pNode->next;
     }
+
+    ft_list_remove_if(&listBase, (void*)3, compare, freeFunc);
+
+    printf("listBase %p\n", listBase);
+
+    pNode = listBase;
+    while (pNode)
+    {
+        printf("NR: %x -> %p\n", (int)pNode->data, pNode);
+        pNode = pNode->next;
+    }
+
+
     //int ret = 0;
     // errno = 0;
     // ret = ft_write(1, "Hello\n", 7);
