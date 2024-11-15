@@ -59,47 +59,47 @@ void freeFunc(void* data)
 int main()
 {
     //t_list** base;
-    t_list* listBase = NULL;
+    // t_list* listBase = NULL;
 
-    ft_list_push_front(&listBase, (void*)0);
-    ft_list_push_front(&listBase, (void*)1);
-    ft_list_push_front(&listBase, (void*)2);
-    ft_list_push_front(&listBase, (void*)3);
-    ft_list_push_front(&listBase, (void*)4);
-    ft_list_push_front(&listBase, (void*)5);
+    // ft_list_push_front(&listBase, (void*)0);
+    // ft_list_push_front(&listBase, (void*)1);
+    // ft_list_push_front(&listBase, (void*)2);
+    // ft_list_push_front(&listBase, (void*)3);
+    // ft_list_push_front(&listBase, (void*)4);
+    // ft_list_push_front(&listBase, (void*)5);
     
-    printf("list size %i\n", ft_list_size(listBase));
+    // printf("list size %i\n", ft_list_size(listBase));
    
-    printf("listBase %p\n", listBase);
-    t_list* pNode = listBase;
-    while (pNode)
-    {
-        printf("NR: %x -> %p\n", (int)pNode->data, pNode);
-        pNode = pNode->next;
-    }
-    printf("Sorting....\n");
+    // printf("listBase %p\n", listBase);
+    // t_list* pNode = listBase;
+    // while (pNode)
+    // {
+    //     printf("NR: %x -> %p\n", (int)pNode->data, pNode);
+    //     pNode = pNode->next;
+    // }
+    // printf("Sorting....\n");
 
-    ft_list_sort(&listBase, &compare);
+    // ft_list_sort(&listBase, &compare);
 
-    printf("listBase %p\n", listBase);
+    // printf("listBase %p\n", listBase);
 
-    pNode = listBase;
-    while (pNode)
-    {
-        printf("NR: %x -> %p\n", (int)pNode->data, pNode);
-        pNode = pNode->next;
-    }
+    // pNode = listBase;
+    // while (pNode)
+    // {
+    //     printf("NR: %x -> %p\n", (int)pNode->data, pNode);
+    //     pNode = pNode->next;
+    // }
 
-    ft_list_remove_if(&listBase, (void*)3, compare, freeFunc);
+    // ft_list_remove_if(&listBase, (void*)3, compare, freeFunc);
 
-    printf("listBase %p\n", listBase);
+    // printf("listBase %p\n", listBase);
 
-    pNode = listBase;
-    while (pNode)
-    {
-        printf("NR: %x -> %p\n", (int)pNode->data, pNode);
-        pNode = pNode->next;
-    }
+    // pNode = listBase;
+    // while (pNode)
+    // {
+    //     printf("NR: %x -> %p\n", (int)pNode->data, pNode);
+    //     pNode = pNode->next;
+    // }
 
 
     //int ret = 0;
@@ -118,15 +118,17 @@ int main()
     
 
 
-    //char baseTen[] = "0123456789";
-    //char strTen[] = "42";
+    // char baseTen[] = "0123456789";
+    // char strTen[] = "42";
 
-    //char baseBin[] = "01";
-    //char strBin[] = "00101010";
+    // char baseBin[] = "01";
+    // char strBin[] = "w";
 
-    //int num = ft_atoi_base(strBin, baseBin);
-
-
+    // int num = ft_atoi_base(strBin, baseBin);
+    char buff1[20];
+    ft_strcpy(buff1, "Hello");
+    printf("Buff %s\n", buff1);
+    //int num = ft_strlen("Hello!!!!!");
     //printf("num : %i\n", num);
     //testValidReadWrite();
     return 0;

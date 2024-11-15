@@ -5,6 +5,7 @@
 #include <errno.h>
 #include <cstring>
 #include <fcntl.h>
+#include <chrono>
 
 template <const bool checkReturn, typename Fn, typename ...Args>
 bool compareCall(std::function<void()> resetState, Fn stdFunc, Fn ftFunc, Args... args)
@@ -114,13 +115,45 @@ bool testStrStuff()
     }
     return true;
 }
+typedef std::chrono::steady_clock aclock;
+
+template <typename R, typename ...Args>
+R testFunc(R (*func)(Args...), Args... args)
+{
+    R ret;
+    aclock::time_point start = aclock::now();
+    ret = func(args...);
+    aclock::time_point end = aclock::now();
+    printf("duration : %lli\n", std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count());
+    return ret;
+}
 
 int main()
 {
-    if (!testReadWrite())
-        return 1;
-    if (!testStrStuff())
-        return 1;
-    printf("All OK (or tests are screwed)\n");
-    return 0;
+
+    // if (!testReadWrite())
+    //     return 1;
+    // if (!testStrStuff())
+    //     return 1;
+    // printf("All OK (or tests are screwed)\n");
+    char str[] = "Eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+   
+    ft_strlen_1(str);
+
+    int num =  testFunc(ft_strlen, (const char*)str);
+    printf("num : %i\n", num);
+    num =  testFunc(ft_strlen_1, (const char*)str);
+    printf("num : %i\n", num);
+
+    // start = std::chrono::steady_clock::now();
+    // num = ft_strlen("Hello!!!!!");
+    // end = std::chrono::steady_clock::now();
+    // printf("num : %i\n", num);
+    // printf("duration : %lli\n", std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count());
+    // return 0;
+    // 
+    // int hehe = ft_strlen("hehehe\n");
+    // std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+    // printf("Len %i\nDuration: %li\n", hehe, std::chrono::duration_cast<std::chrono::minutes>(end - start).count());
+    // return 0;
 }
