@@ -57,7 +57,7 @@ zero_stack:
     mov BYTE [rsp + rax], 0
     cmp rax, 255
     inc rax
-    jl zero_stack
+    jbe zero_stack
     xor rdx, rdx
     xor rax, rax
     xor r8, r8

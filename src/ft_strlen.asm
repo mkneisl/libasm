@@ -2,7 +2,7 @@
 
     global ft_strlen
     global ft_strlen_1
-    
+
     section .text
 ft_strlen:
     xor rax, rax

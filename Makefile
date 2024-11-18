@@ -7,8 +7,8 @@ BONUS_FILE_NAMES = ft_atoi_base ft_list_new ft_list_push_front ft_list_sort ft_l
 OBJ_FILES = $(addprefix $(BIN)/, $(addsuffix .o , $(FILE_NAMES)))
 BONUS_OBJ_FILES = $(addprefix $(BIN)/bonus/, $(addsuffix .o , $(BONUS_FILE_NAMES)))
 
-TEST_FILE = ./tests/main.c
-TEST_FILE++ = ./tests/main.cpp
+TEST_FILE_MANDATORY = ./tests/mandatory.cpp
+TEST_FILE_BONUS = ./tests/bonus.c
 
 ASM_DEBUG_INFO = -g -F dwarf
 CFLAGS = -Werror -Wall -Wextra
@@ -36,22 +36,19 @@ else
 	@exit 1
 endif
 
-# $(BIN):
-# 	@mkdir $(BIN)
+mandatoryTests: $(NAME) $(TEST_FILE_MANDATORY)
+	c++ $(CFLAGS) $(CPPFLAGS) $(TEST_FILE_MANDATORY) $(NAME) -o $@
 
-testsc: $(NAME) $(TEST_FILE)
-	cc  $(CFLAGS) $(TEST_FILE) $(NAME) -o $@
-
-tests++: $(NAME) $(TEST_FILE++)
-	c++ $(CFLAGS) $(CPPFLAGS) $(TEST_FILE++) $(NAME) -o $@
+bonusTests: $(BONUS_OBJ_FILES) $(NAME) $(TEST_FILE_BONUS)
+	cc  $(CFLAGS) $(TEST_FILE_BONUS) $(NAME) -o $@
 
 clean:
 	@rm -rf $(BIN)
 
 fclean: clean
 	@rm -f $(NAME)
-	@rm -f tests++
-	@rm -f testsc
+	@rm -f mandatoryTests
+	@rm -f bonusTests
 	@rm -f test.txt
 
 re: fclean $(NAME)
