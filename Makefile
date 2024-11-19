@@ -1,8 +1,18 @@
 NAME = libasm.a
 BIN = bin
 
-FILE_NAMES = ft_write ft_read  ft_strlen ft_strcpy ft_strcmp ft_strdup
-BONUS_FILE_NAMES = ft_atoi_base ft_list_new ft_list_push_front ft_list_sort ft_list_remove_if ft_list_size
+FILE_NAMES = ft_write \
+			ft_read \
+			ft_strlen \
+			ft_strcpy \
+			ft_strcmp \
+			ft_strdup
+BONUS_FILE_NAMES = ft_atoi_base \
+				ft_list_new \
+				ft_list_push_front \
+				ft_list_sort \
+				ft_list_remove_if \
+				ft_list_size
 
 OBJ_FILES = $(addprefix $(BIN)/, $(addsuffix .o , $(FILE_NAMES)))
 BONUS_OBJ_FILES = $(addprefix $(BIN)/bonus/, $(addsuffix .o , $(BONUS_FILE_NAMES)))
@@ -16,16 +26,21 @@ CPPFLAGS = -std=c++2a
 
 OS_NAME = $(shell uname -s)
 DIR_GUARD=@mkdir -p $(@D)
+BONUS_FILE=$(shell ar -t $(NAME) 2>/dev/null | grep ft_atoi_base)
 
 all: $(NAME)
 
 $(NAME): $(OBJ_FILES)
 	ar rc $(NAME) $(OBJ_FILES)
 
-bonus: $(BONUS_OBJ_FILES)
+bonus: $(BONUS_OBJ_FILES) $(OBJ_FILES)
+ifeq ($(BONUS_FILE), ft_atoi_base.o)
+	@echo "make: Nothing to be done for \`bonus'."
+else
 	ar rc $(NAME) $(OBJ_FILES) $(BONUS_OBJ_FILES)
+endif
 
-$(BIN)/%.o: ./src/%.asm
+$(BIN)/%.o: ./src/%.s
 	$(DIR_GUARD)
 ifeq ($(OS_NAME), Darwin)
 	nasm -f macho64 $< -o $@
@@ -39,7 +54,10 @@ endif
 mandatoryTests: $(NAME) $(TEST_FILE_MANDATORY)
 	c++ $(CFLAGS) $(CPPFLAGS) $(TEST_FILE_MANDATORY) $(NAME) -o $@
 
-bonusTests: $(BONUS_OBJ_FILES) $(NAME) $(TEST_FILE_BONUS)
+bonusTests: $(TEST_FILE_BONUS)
+ifneq ($(BONUS_FILE), ft_atoi_base.o)
+	$(MAKE) bonus
+endif
 	cc  $(CFLAGS) $(TEST_FILE_BONUS) $(NAME) -o $@
 
 clean:

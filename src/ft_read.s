@@ -1,4 +1,4 @@
-%include "src/macros.asm"
+%include "src/macros.s"
 
     global ft_read
 %ifidn __OUTPUT_FORMAT__, macho64

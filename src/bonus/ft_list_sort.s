@@ -1,5 +1,5 @@
-%include "src/macros.asm"
-%include "src/bonus/list_macros.asm"
+%include "src/macros.s"
+%include "src/bonus/list_macros.s"
 
 	global ft_list_sort
 

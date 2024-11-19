@@ -1,4 +1,4 @@
-%include "src/macros.asm"
+%include "src/macros.s"
 
     global ft_atoi_base
     extern ft_strlen
